@@ -1,0 +1,193 @@
+/* General Layout Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    padding: 20px;
+    background-color: #f4f4f4; /* Light background for the page */
+}
+
+/* Vertical Container Layout */
+.vertical-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Heading Section */
+.item {
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 960px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+h2 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+p {
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+strong {
+    font-weight: 700;
+}
+
+a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Widget Section (Horizontal layout for widgets) */
+.widget-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 960px;
+    margin-bottom: 20px;
+    gap: 16px; /* Space between widgets */
+}
+
+.widget-container .item {
+    flex: 1;
+    margin-right: 20px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.widget-container .item:last-child {
+    margin-right: 0;
+}
+
+/* YOUR WIDGET STYLE */
+.widget {
+    flex: 1; /* Make widgets take up equal horizontal space */
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    min-width: 0; /* Prevent overflow issues */
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+/* Slider Widget */
+.slider-widget label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 1em;
+  }
+  
+  .slider-track {
+    position: relative;
+    height: 8px;
+    background-color: #ddd;
+    border-radius: 4px;
+    margin: 16px 0;
+  }
+  
+  .slider-thumb {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: #007BFF;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%; /* Initial thumb position */
+    transform: translate(-50%, -50%);
+    cursor: grab;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  .slider-value {
+    margin-top: 8px;
+    font-size: 0.9em;
+    color: #555;
+  }
+
+/* Checkbox widget */
+.task-widget .widget-title {
+font-size: 1.2em;
+margin-bottom: 8px;
+}
+
+.task-widget ul {
+list-style: none;
+padding: 0;
+}
+
+.task-widget li {
+margin-bottom: 4px;
+}
+
+.task-widget input[type="checkbox"] {
+margin-right: 8px;
+}
+
+/* Chart Container */
+#lineChart {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    height: auto;
+}
+
+/* Axis label styling */
+.axis-label {
+    font-size: 12px;
+    fill: #666;
+    text-anchor: middle;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .item {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    h2 {
+        font-size: 1.25rem;
+    }
+
+    .horizontal-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .horizontal-container .item {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .horizontal-container .item:last-child {
+        margin-bottom: 0;
+    }
+}
+
+/* CSS generated with the help of ChatGPT. */
