@@ -17,13 +17,13 @@ d3.csv("weather.csv").then(data => {
     // --- CASE 1: FLATTEN ---
     // Determine your fields of interest:
     // - X: Date
-    // - Y: Actual Precipitation
+    // - Y: Average Precipitation
     // - Category: City
 
     // 1.1: Rename and reformat
     data.forEach(d => {
-        d.year = new Date(d.date).getFullYear; // Parse dates and get year
-        d.precip = +d.actual_precipitation; // Convert precipitation to numeric
+        d.year = new Date(d.date).getFullYear(); // Parse dates and get year
+        d.precip = +d.average_precipitation; // Convert precipitation to numeric
     }); 
 
     // Check your work:
@@ -40,13 +40,13 @@ d3.csv("weather.csv").then(data => {
     console.log("Filtered data 1:", filteredData1);
 
     // 1.3: GROUP AND AGGREGATE
-    // "For each city per year, I want the average of actual precipitation."
+    // "For each city per year, I want the average of average precipitation."
     const groupedData1 = d3.groups(filteredData1, d => d.city, d => d.year)
         .map(([city, years]) => ({
             city,
             values: years.map(([year, entries]) => ({
                 year,
-                actualPrecip: d3.mean(entries, e => e.precip)
+                avgPrecip: d3.mean(entries, e => e.precip)
             }))
         }));
 
@@ -62,9 +62,9 @@ d3.csv("weather.csv").then(data => {
             - Your color variable (city)
     */
     const flattenedData = groupedData1.flatMap(({city, values}) =>
-        values.map(({years, actualPrecip}) => ({
-            years,
-            actualPrecip,
+        values.map(({year, avgPrecip}) => ({
+            year,
+            avgPrecip,
             city
         }))
     );   
