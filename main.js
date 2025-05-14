@@ -17,13 +17,13 @@ d3.csv("weather.csv").then(data => {
     // --- CASE 1: FLATTEN ---
     // Determine your fields of interest:
     // - X: Date
-    // - Y: Average Precipitation
+    // - Y: Actual Precipitation
     // - Category: City
 
     // 1.1: Rename and reformat
     data.forEach(d => {
-        d.year = new Date(d.date); // Parse dates and get year
-        d.precip = +d.average_precipitation; // Convert precipitation to numeric
+        d.year = new Date(d.date).getFullYear; // Parse dates and get year
+        d.precip = +d.actual_precipitation; // Convert precipitation to numeric
     }); 
 
     // Check your work:
@@ -34,14 +34,22 @@ d3.csv("weather.csv").then(data => {
     /*
         Don't make any filters. Set filtered data to be just be `data`.
     */
-    const filteredData1 = "";// Your code here!
+    const filteredData1 = data;// Your code here!
 
     // Check your work:
     console.log("Filtered data 1:", filteredData1);
 
     // 1.3: GROUP AND AGGREGATE
-    // "For each [CITY], each [YEAR], I want the {average of} [AVERAGE PRECIPITATION]."
-    const groupedData1 = "";// Your code here!
+    // "For each city per year, I want the average of actual precipitation."
+    const groupedData1 = d3.groups(filteredData1, d => d.city, d => d.year)
+        .map(([city, years]) => ({
+            city,
+            values: years.map(([year, entries]) => ({
+                year,
+                actualPrecip: d3.mean(entries, e => e.precip)
+            }))
+        }));
+
     
     // Check your work:
     console.log("Grouped data 1:", groupedData1);
@@ -53,7 +61,13 @@ d3.csv("weather.csv").then(data => {
             - Your y-variable (avgPrecipitation)
             - Your color variable (city)
     */
-    const flattenedData = "";// Your code here!
+    const flattenedData = groupedData1.flatMap(({city, values}) =>
+        values.map(({years, actualPrecip}) => ({
+            years,
+            actualPrecip,
+            city
+        }))
+    );   
 
     // // Check your work:
     console.log("Final flattened data:", flattenedData);
@@ -80,7 +94,8 @@ d3.csv("weather.csv").then(data => {
     /*
         Filter the data to just the year of 2014.
     */
-    const filteredData2 = "";// Your code here!
+    // const filteredData2 = data.filter(d => d.year === 2014);// Your code here!
+    const filteredData2 = data;
 
     // Check your work:
     console.log("Filtered data 2:", filteredData2);
@@ -89,7 +104,13 @@ d3.csv("weather.csv").then(data => {
     /*
         "For each [MONTH], I want the {average of} [AVERAGE], [ACTUAL], and [RECORD PRECIPITATION]."
     */
-    const groupedData2 = "";// Your code here!
+    const groupedData2 = d3.groups(filteredData2, d => d.month)
+        .map(([month, entries]) => ({
+            month,
+            actualPrecip: d3.mean(entries, e => e.actualPrecip),
+            avgPrecip: d3.mean(entries, e => e.avgPrecip),
+            recordPrecip: d3.mean(entries, e => e.recordPrecip)
+        }));
 
     // Check your work:
     console.log("Grouped data 2:", groupedData2);
@@ -101,7 +122,11 @@ d3.csv("weather.csv").then(data => {
             - Y-variable (precipitation value)
             - Category (measurement type)
     */
-    const pivotedData = "";// Your code here!
+    const pivotedData = groupedData2.flatMap(({month, actualPrecip, avgPrecip, recordPrecip}) => [
+       {month, preticipation: actualPrecip, measurement: "Actual"},
+       {month, preticipation: avgPrecip, measurement: "Average"},
+       {month, preticipation: recordPrecip, measurement: "Record"}
+    ]);
 
     // Check your work:
     console.log("Final pivoted data:", pivotedData);
